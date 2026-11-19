@@ -1,6 +1,6 @@
 # EU AI Act RAG Assistant (LangChain · Chroma · TinyLlama)
 
-Ask questions about the EU Artificial Intelligence Act and get answers grounded in the text of the Act, generated **entirely on a laptop CPU** with open models: no paid API and no GPU.
+Ask questions about the EU Artificial Intelligence Act (retrieval hit@4 of 0.88, 100% refusal of out-of-scope questions) and get answers grounded in the text of the Act, generated **entirely on a laptop CPU** with open models: no paid API and no GPU.
 
 | Component | Choice |
 |---|---|
@@ -55,7 +55,22 @@ pytest -q                        # offline tests (no model downloads)
 - out-of-scope refusal rate
 - in-scope questions wrongly refused
 
-v2 results on the full models: *to be added after the local run.*
+### v2 results
+
+Measured on a Windows laptop CPU with `all-MiniLM-L6-v2` and TinyLlama-1.1B-Chat (k = 4, relevance threshold 0.35):
+
+| Metric | Result |
+|---|---|
+| Retrieval hit@4 (expected page retrieved) | **0.88** (7 of 8) |
+| Out-of-scope questions refused | **1.00** (4 of 4; v1 answered "capital of USA") |
+| In-scope questions wrongly refused | **0** of 8 |
+| Answer contains the expected key fact | 0.38 (3 of 8) |
+
+**Reading the results:** retrieval and the refusal gate work. The weak link is generation: a 1.1B model often paraphrases loosely or omits the exact figure (for example, the EUR 35 000 000 fine) even when the right page is in its context. Because retrieval already finds the right page 7 times out of 8, the next steps target the generator:
+
+- swap in a larger local model (for example Phi-3-mini or Qwen2.5-3B through Ollama) and re-run the same evaluation
+- extract quoted sentences from the retrieved chunks before generating
+- add a reranker and test a hybrid BM25 + vector retriever for the one retrieval miss
 
 ## Data
 

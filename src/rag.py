@@ -100,9 +100,11 @@ def tinyllama_generator(model_name: str = LLM_MODEL, max_new_tokens: int = 256) 
 
     def generate(system: str, user: str) -> str:
         messages = [{"role": "system", "content": system}, {"role": "user", "content": user}]
-        ids = tok.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt")
+        enc = tok.apply_chat_template(messages, add_generation_prompt=True,
+                                      return_tensors="pt", return_dict=True)
+        ids = enc["input_ids"]
         with torch.no_grad():
-            out = model.generate(ids, max_new_tokens=max_new_tokens, do_sample=False,
+            out = model.generate(**enc, max_new_tokens=max_new_tokens, do_sample=False,
                                  repetition_penalty=1.15, no_repeat_ngram_size=4,
                                  eos_token_id=tok.eos_token_id, pad_token_id=tok.eos_token_id)
         text = tok.decode(out[0, ids.shape[1]:], skip_special_tokens=True)
