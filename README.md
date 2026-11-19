@@ -11,16 +11,16 @@ Ask questions about the EU Artificial Intelligence Act (retrieval hit@4 of 0.88,
 | Generator | `TinyLlama/TinyLlama-1.1B-Chat-v1.0` via Hugging Face Transformers |
 | Orchestration | LangChain retrieval chain (v1), plain Python pipeline (v2) |
 
-## v1: the original notebook
+## v1: baseline notebook
 
 [`notebooks/01_rag_tinyllama_original.ipynb`](notebooks/01_rag_tinyllama_original.ipynb) builds the full pipeline: load the PDF (272 pages), split into 1,507 chunks of 500 characters with 50 overlap, embed with MiniLM, store in Chroma, retrieve the top 3 chunks, and answer with TinyLlama using a prompt that tells the model to answer only from the context.
 
-The outputs are kept exactly as they ran, because they show two real failure modes:
+The outputs are kept exactly as they ran. They revealed two issues that shaped v2:
 
 1. **Repetition loop.** "What are the key risk categories in the AI Act?" produced a generic list that degenerated into repeating *"Risk transfer and governance/management/control risks"* until the token limit. None of the items are the Act's actual tiers: prohibited practices, high-risk systems, transparency obligations and general-purpose AI models.
 2. **Grounding ignored.** "What is capital of Usa?" was answered from the model's own knowledge ("Washington, D.C.") and the model then invented a new `Human:` turn, despite the instruction to say it does not know.
 
-## Diagnosis
+## What caused them
 
 | Problem | Cause |
 |---|---|
