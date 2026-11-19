@@ -86,3 +86,7 @@ The notebook used Council of the EU document 5662/24 (26 January 2024), the fina
 ├── data/                                       # put the PDF here
 └── requirements.txt
 ```
+
+## Author
+
+**Anisha Persis Christopher**, Data Scientist · [LinkedIn](https://www.linkedin.com/in/anishapersis) · [GitHub](https://github.com/Anishapersis)
