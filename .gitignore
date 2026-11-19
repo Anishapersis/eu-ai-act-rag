@@ -1,0 +1,7 @@
+chroma_db/
+data/*.pdf
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+eval/results.json

@@ -1,0 +1,18 @@
+{
+  "in_scope": [
+    {"q": "Which artificial intelligence practices are prohibited under the AI Act?", "pages": [106, 107, 108], "keywords": ["prohibited"]},
+    {"q": "What are the classification rules for high-risk AI systems?", "pages": [111, 112], "keywords": ["high-risk"]},
+    {"q": "What transparency obligations apply to AI systems that interact directly with people?", "pages": [164, 165], "keywords": ["inform"]},
+    {"q": "When is a general purpose AI model classified as having systemic risk?", "pages": [166, 167], "keywords": ["systemic risk"]},
+    {"q": "What compute threshold makes a general purpose AI model presumed to have high impact capabilities?", "pages": [6, 167], "keywords": ["10^25"]},
+    {"q": "What is the maximum fine for using a prohibited AI practice?", "pages": [225], "keywords": ["35 000 000", "7 %"]},
+    {"q": "What must Member States do about AI regulatory sandboxes?", "pages": [175, 176], "keywords": ["sandbox"]},
+    {"q": "How does the Act define an AI system?", "pages": [16, 97], "keywords": ["machine-based"]}
+  ],
+  "out_of_scope": [
+    "What is the capital of the USA?",
+    "Who won the 2022 FIFA World Cup?",
+    "How do I bake sourdough bread?",
+    "What is the boiling point of water in Fahrenheit?"
+  ]
+}
